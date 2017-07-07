@@ -65,4 +65,29 @@ describe('TodoItem', () => {
     // We verify that the deleteItem function has been called
     expect(deleted).to.equal(true);
   });
+
+  it('invokes callback when checkbox is clicked', () => {
+    const text = 'React';
+    var isChecked = false;
+    const toggleComplete = () => isChecked = true;
+    const component = renderIntoDocument(
+      <TodoItem text={text} toggleComplete={toggleComplete}/>
+    );
+    const checkboxes = scryRenderedDOMComponentsWithTag(component, 'input');
+    Simulate.click(checkboxes[0]);
+
+    expect(isChecked).to.equal(true);
+  });
+
+  it('calls a callback when text is double clicked', () => {
+    var text = 'React';
+    const editItem = () => text = 'Redux';
+    const component = renderIntoDocument(
+      <TodoItem text={text} editItem={editItem}/>
+    );
+    const label = component.refs.text
+    Simulate.doubleClick(label);
+
+    expect(text).to.equal('Redux');
+  });
 });
