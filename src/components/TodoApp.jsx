@@ -1,7 +1,8 @@
 import React from 'react';
 import TodoList from './TodoList'
+import {connect} from 'react-redux';
 
-export default class TodoApp extends React.Component {
+export class TodoApp extends React.Component {
   render() {
     return <div>
       <section className="todoapp">
@@ -10,3 +11,12 @@ export default class TodoApp extends React.Component {
     </div>
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    todos: state.get('todos'),
+    filter: state.get('filter')
+  };
+}
+
+export const TodoAppContainer = connect(mapStateToProps)(TodoApp);
